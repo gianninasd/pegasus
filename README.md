@@ -1,6 +1,6 @@
 Pegasus
 ================
-A Java micro-service experiment, using Spring Boot, JPA and built with Gradle
+A Java micro-service experiment using Spring Boot, JPA and built with Gradle. Using MySQL 5.2 as the backing data store.
 
 ## Pre-requisites
 * Install Git 2.11.x

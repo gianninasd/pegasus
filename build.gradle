@@ -19,6 +19,8 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:23.0'
     compile 'org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.1.RELEASE'
+    compile 'mysql:mysql-connector-java:5.1.46'
     testCompile 'junit:junit:4.12'
 }
 
