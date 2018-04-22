@@ -1,6 +1,6 @@
 Pegasus
 ================
-My micro-service experiment, I plan to use spring boot, hibernate and gradle
+A Java micro-service experiment, using Spring Boot, JPA and built with Gradle
 
 ## Pre-requisites
 * Install Git 2.11.x

@@ -1,7 +1,8 @@
 package dg.pegasus;
 
 /**
- * 
+ * User domain object
+ * @author gianninasd
  */
 public class User {
   

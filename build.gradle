@@ -7,16 +7,12 @@
  */
 
 plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
-
-    // Apply the application plugin to add support for building an application
-    id 'application'
+    id 'java' // add support for Java
+    id 'application' // add support for building an application
 }
 
-description = 'mini sample app'
+description = 'User administration as a REST API'
 version = '0.1'
-// Define the main class for the application
 mainClassName = 'dg.pegasus.Application'
 
 dependencies {

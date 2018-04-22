@@ -3,6 +3,10 @@ package dg.pegasus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Main REST controller for processing all user administration requests.
+ * @author gianninasd
+ */
 @RestController
 public class UserController {
 
