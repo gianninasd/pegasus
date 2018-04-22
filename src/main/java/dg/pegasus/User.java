@@ -1,5 +1,7 @@
 package dg.pegasus;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,6 +23,8 @@ public class User {
   private String name;
   private String email;
   private String statusCode;
+  private String createdBy;
+  private Date creationDate;
 
   public String getUserName() {
     return userName;
@@ -60,6 +64,22 @@ public class User {
 
   public void setStatusCode(String statusCode) {
     this.statusCode = statusCode;
+  }
+
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
+
+  public Date getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
   }
 
 }

@@ -15,3 +15,8 @@ Open a console and run the following commands to get going:
 * `gradlew run`
 
 You will see processing output on your console and once you see `initialization complete`, open a browser window and navigate to `http://localhost:8080/getUser` to see the JSON output
+
+## References
+Below are some reference web sites
+* Building REST API: `https://spring.io/guides/gs/rest-service/`
+* Accessing MySQL: `https://spring.io/guides/gs/accessing-data-mysql/`
