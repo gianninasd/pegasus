@@ -19,9 +19,15 @@ public class UserService {
 
   /**
    * Returns a user object based on the id provided.
+   * @throws UserNotFoundException if the user cannot be found
    */
   public User load( String id ) {
     Optional<User> user = userRepository.findById( id );
+
+    if( !user.isPresent() ) {
+      throw new UserNotFoundException();
+    }
+
     return user.get();
   }
 

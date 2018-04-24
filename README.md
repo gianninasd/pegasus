@@ -22,5 +22,5 @@ Below are some reference web sites
 * Accessing MySQL: `https://spring.io/guides/gs/accessing-data-mysql/`
 * JUnit: `https://junit.org/junit4/`
 * JUnit with Mockito: 
- * `http://www.vogella.com/tutorials/Mockito/article.html`
- * `https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm`
+  * `http://www.vogella.com/tutorials/Mockito/article.html`
+  * `https://www.tutorialspoint.com/mockito/mockito_junit_integration.htm`
