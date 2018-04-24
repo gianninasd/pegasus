@@ -24,7 +24,6 @@ public class UserController {
 
   @RequestMapping("/create")
   public @ResponseBody String create( @RequestBody User user ) {
-    // TODO add validation
     userService.create(user);
     return "Saved";
   }

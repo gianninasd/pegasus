@@ -2,5 +2,10 @@
 .settings
 .classpath
 .gradle
+
+# generated folders
 bin
 build
+
+# generated files
+*.class
