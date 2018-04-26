@@ -17,6 +17,7 @@ mainClassName = 'dg.pegasus.Application'
 
 dependencies {
     compile 'com.google.guava:guava:23.0'
+    compile 'org.springframework.boot:spring-boot-starter:2.0.1.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web:2.0.1.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:2.0.1.RELEASE'
     compile 'mysql:mysql-connector-java:5.1.46'
