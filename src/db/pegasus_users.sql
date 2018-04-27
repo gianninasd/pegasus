@@ -27,11 +27,21 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `email` varchar(256) DEFAULT NULL,
   `created_by` varchar(256) NOT NULL,
   `creation_date` datetime NOT NULL,
   `status_code` varchar(10) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `password_salt` varchar(256) NOT NULL,
+  `password_algorithm` varchar(10) NOT NULL DEFAULT 'SHA-256',
+  `password_iterations` int(11) NOT NULL DEFAULT '1005',
+  `modified_by` varchar(256) NOT NULL,
+  `modification_date` datetime NOT NULL,
+  `allowed_ip_addresses` varchar(256) DEFAULT NULL,
+  `nbr_failed_login_attempts` int(11) DEFAULT NULL,
+  `last_login_date` datetime DEFAULT NULL,
+  `last_login_ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,4 +55,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-21 23:32:00
+-- Dump completed on 2018-04-26 23:34:56
