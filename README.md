@@ -14,7 +14,7 @@ Open a console and run the following commands to get going:
 * `gradlew build`
 * `gradlew run`
 
-You will see processing output on your console and once you see `initialization complete`, open a browser window and navigate to `http://localhost:8080/user/getUser` to see the JSON output
+You will see processing output on your console and once you see `initialization complete`, open a browser window and navigate to `http://localhost:8080/user?id=dd7262ad-f713-4d36-bcb3-fe9b5e75a74d` to see the JSON output
 
 ## References
 Below are some reference web sites

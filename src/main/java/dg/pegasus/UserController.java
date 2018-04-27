@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,13 +23,13 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @RequestMapping("/getUser")
-  public User getUser() {
-    logger.info("test ...");
-    return userService.load("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d");
+  @RequestMapping(method=RequestMethod.GET)
+  public User load( @RequestParam String id ) {
+    logger.info("Loading user " + id);
+    return userService.load( id );
   }
 
-  @RequestMapping("/create")
+  @RequestMapping(method=RequestMethod.POST)
   public @ResponseBody String create( @RequestBody User user ) {
     userService.create(user);
     return "Saved";
