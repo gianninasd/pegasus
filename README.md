@@ -18,7 +18,7 @@ You will see processing output on your console and once you see `initialization 
 
 ## References
 Below are some reference web sites
-* Spring Boot: `https://docs.spring.io/spring-boot/docs/current/reference/html/`
+* Spring Boot: https://docs.spring.io/spring-boot/docs/current/reference/html/
 * Building REST API: `https://spring.io/guides/gs/rest-service/`
 * Accessing MySQL: `https://spring.io/guides/gs/accessing-data-mysql/`
 * JUnit: `https://junit.org/junit4/`
