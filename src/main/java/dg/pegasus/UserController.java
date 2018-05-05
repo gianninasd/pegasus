@@ -1,10 +1,16 @@
 package dg.pegasus;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +35,14 @@ public class UserController {
   private UserService userService;
 
   /**
+   * Initialize the custom validators used by various methods.
+   */
+  @InitBinder
+  protected void initBinder(WebDataBinder binder) {
+    //binder.addValidators(new CreateUserValidator());
+  }
+
+  /**
    * Loads a user based on the Id provided.
    */
   @RequestMapping(method=RequestMethod.GET, value="/{id}")
@@ -37,10 +51,26 @@ public class UserController {
     return userService.load( id );
   }
 
+  /**
+   * Creates a user based on the data provided.
+   */
   @RequestMapping(method=RequestMethod.POST)
-  public @ResponseBody String create( @RequestBody User user ) {
-    userService.create(user);
-    return "Saved";
+  public @ResponseBody Object create( @Valid @RequestBody User user, Errors errors ) {
+    logger.info("Create user: " + user);
+
+    if( errors.getErrorCount() > 0 ) {
+      ErrorResponse res = new ErrorResponse("2001", "Some fields contain errors");
+
+      for( FieldError err: errors.getFieldErrors() ) {
+        res.getError().addDetails(err.getField(), err.getDefaultMessage());
+      }
+
+      return res;
+    }
+    else {
+      userService.create(user);
+      return "Saved";
+    }
   }
 
   /**

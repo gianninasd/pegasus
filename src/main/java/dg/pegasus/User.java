@@ -1,11 +1,17 @@
 package dg.pegasus;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * User domain object
@@ -13,18 +19,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Users")
-public class User {
+public class User implements Serializable {
   
+  private static final long serialVersionUID = 1L;
+
   @Id
   private String id;
 
   @Column(name="username")
   private String userName;
+
+  @NotBlank(message="{user.name.invalid}")
+  @Size(max=50,message="{user.name.invalid}")
   private String name;
+
   private String email;
   private String statusCode;
   private String createdBy;
   private Date creationDate;
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 
   public String getUserName() {
     return userName;
@@ -81,5 +98,4 @@ public class User {
   public void setCreationDate(Date creationDate) {
     this.creationDate = creationDate;
   }
-
 }

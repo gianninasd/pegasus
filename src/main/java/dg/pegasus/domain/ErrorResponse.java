@@ -1,6 +1,8 @@
 package dg.pegasus.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Response class used to return proper error messages to the client.
@@ -31,10 +33,15 @@ public class ErrorResponse implements Serializable {
 
     private String code;
     private String message;
+    private List<ErrorField> details = new ArrayList<ErrorField>();
 
     public Error( String code, String message ) {
       this.code = code;
       this.message = message;
+    }
+
+    public void addDetails( String field, String message ) {
+      details.add( new ErrorField(field, message) );
     }
 
     public String getMessage() {
@@ -51,6 +58,44 @@ public class ErrorResponse implements Serializable {
 
     public void setCode(String code) {
       this.code = code;
+    }
+
+    public List<ErrorField> getDetails() {
+      return details;
+    }
+
+    public void setDetails(List<ErrorField> details) {
+      this.details = details;
+    }
+  }
+
+  /**
+   * Inner class containing the field level error.
+   */
+  public class ErrorField {
+    
+    private String field;
+    private String message;
+
+    public ErrorField( String field, String message ) {
+      this.field = field;
+      this.message = message;
+    }
+
+    public String getField() {
+      return field;
+    }
+
+    public void setField(String field) {
+      this.field = field;
+    }
+
+    public String getMessage() {
+      return message;
+    }
+
+    public void setMessage(String message) {
+      this.message = message;
     }
   }
 }
