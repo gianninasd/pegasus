@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import dg.pegasus.validator.UserStatusConstraint;
+
 /**
  * User domain object
  * @author gianninasd
@@ -36,6 +38,8 @@ public class User implements Serializable {
   private String name;
 
   private String email;
+
+  @UserStatusConstraint(message="{user.status.invalid}")
   private String statusCode;
   private String createdBy;
   private Date creationDate;

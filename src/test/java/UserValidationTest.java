@@ -91,6 +91,17 @@ public class UserValidationTest {
     assertEquals("{user.username.invalid}", violation.getMessage());
   }
 
+  @Test
+  public void invalidStatus() {
+    User user = getGoodUser();
+    user.setStatusCode("BO");
+
+    Set<ConstraintViolation<User>> violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    ConstraintViolation<User> violation = violations.iterator().next();
+    assertEquals("{user.status.invalid}", violation.getMessage());
+  }
+
   private User getGoodUser() {
     User user = new User();
     user.setName("mary k.");
