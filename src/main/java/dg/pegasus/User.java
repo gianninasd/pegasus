@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -27,6 +28,7 @@ public class User implements Serializable {
   private String id;
 
   @Column(name="username")
+  @Pattern(regexp="[a-z0-9-.)()]{2,50}",message="{user.username.invalid}")
   private String userName;
 
   @NotBlank(message="{user.name.invalid}")

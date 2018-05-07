@@ -37,11 +37,7 @@ public class UserValidationTest {
   @Test
   public void shouldHaveNoViolations() {
     //given:
-    User user = new User();
-    user.setName("mary k.");
-    user.setUserName("mary");
-    user.setEmail("mary@gmail.com");
-    user.setStatusCode("PENDING");
+    User user = getGoodUser();
 
     //when:
     Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -52,11 +48,8 @@ public class UserValidationTest {
 
   @Test
   public void invalidName() {
-    User user = new User();
+    User user = getGoodUser();
     user.setName("");
-    user.setUserName("mary");
-    user.setEmail("mary@gmail.com");
-    user.setStatusCode("PENDING");
 
     Set<ConstraintViolation<User>> violations = validator.validate(user);
 
@@ -71,5 +64,39 @@ public class UserValidationTest {
     assertEquals(violations.size(), 1);
     violation = violations.iterator().next();
     assertEquals("{user.name.invalid}", violation.getMessage());
+  }
+
+  @Test
+  public void invalidUsername() {
+    User user = getGoodUser();
+    user.setUserName("  ");
+
+    Set<ConstraintViolation<User>> violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    ConstraintViolation<User> violation = violations.iterator().next();
+    assertEquals("{user.username.invalid}", violation.getMessage());
+
+    user.setUserName("BLUE42");
+
+    violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    violation = violations.iterator().next();
+    assertEquals("{user.username.invalid}", violation.getMessage());
+
+    user.setUserName("red-77*");
+
+    violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    violation = violations.iterator().next();
+    assertEquals("{user.username.invalid}", violation.getMessage());
+  }
+
+  private User getGoodUser() {
+    User user = new User();
+    user.setName("mary k.");
+    user.setUserName("mary");
+    user.setEmail("mary@gmail.com");
+    user.setStatusCode("PENDING");
+    return user;
   }
 }
