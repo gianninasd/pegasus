@@ -39,8 +39,9 @@ public class User implements Serializable {
 
   private String email;
 
+  @Column(name="status_code")
   @UserStatusConstraint(message="{user.status.invalid}")
-  private String statusCode;
+  private String status;
   private String createdBy;
   private Date creationDate;
 
@@ -81,12 +82,12 @@ public class User implements Serializable {
     this.email = email;
   }
 
-  public String getStatusCode() {
-    return statusCode;
+  public String getStatus() {
+    return status;
   }
 
-  public void setStatusCode(String statusCode) {
-    this.statusCode = statusCode;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public String getCreatedBy() {

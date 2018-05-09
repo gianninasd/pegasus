@@ -94,7 +94,7 @@ public class UserValidationTest {
   @Test
   public void invalidStatus() {
     User user = getGoodUser();
-    user.setStatusCode("BO");
+    user.setStatus("BO");
 
     Set<ConstraintViolation<User>> violations = validator.validate(user);
     assertEquals(violations.size(), 1);
@@ -107,7 +107,7 @@ public class UserValidationTest {
     user.setName("mary k.");
     user.setUserName("mary");
     user.setEmail("mary@gmail.com");
-    user.setStatusCode("PENDING");
+    user.setStatus("PENDING");
     return user;
   }
 }
