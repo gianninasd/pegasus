@@ -34,11 +34,16 @@ public class UserService {
   /**
    * Creates and stores a new user using the data provided.
    */
-  public void create( User user ) {
-    UUID id = UUID.randomUUID();
-    user.setId(id.toString());
-    user.setCreatedBy("API");
-    user.setCreationDate(new Date());
-    userRepository.save(user);
+  public User create( User user ) {
+    try {
+      UUID id = UUID.randomUUID();
+      user.setId(id.toString());
+      user.setCreatedBy("API");
+      user.setCreationDate(new Date());
+      return userRepository.save(user);
+    }
+    catch( Exception ex ) {
+      throw new UserSaveFailedException(ex.getMessage());
+    }
   }
 }

@@ -76,6 +76,17 @@ public class UserController {
   }
 
   /**
+   * Handles when a UserSaveFailedException is thrown and returns a proper error response.
+   */
+  @ResponseBody
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ExceptionHandler(UserSaveFailedException.class)
+  public ErrorResponse handleUserSaveFailed(UserSaveFailedException ex) {
+    logger.error("Unknown error saving user " + ex);
+    return new ErrorResponse("1000", "Unable to create user, contact support");
+  }
+
+  /**
    * Handles when a UserNotFoundException is thrown and returns a proper error response.
    */
   @ResponseBody
