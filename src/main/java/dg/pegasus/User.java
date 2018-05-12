@@ -46,6 +46,11 @@ public class User implements Serializable {
   private String status;
   private String createdBy;
   private Date creationDate;
+  private String modifiedBy;
+  private Date modificationDate;
+
+  private String password;
+  private String passwordSalt;
 
   @Override
   public String toString() {
@@ -106,5 +111,37 @@ public class User implements Serializable {
 
   public void setCreationDate(Date creationDate) {
     this.creationDate = creationDate;
+  }
+
+  public String getModifiedBy() {
+    return modifiedBy;
+  }
+
+  public void setModifiedBy(String modifiedBy) {
+    this.modifiedBy = modifiedBy;
+  }
+
+  public Date getModificationDate() {
+    return modificationDate;
+  }
+
+  public void setModificationDate(Date modificationDate) {
+    this.modificationDate = modificationDate;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getPasswordSalt() {
+    return passwordSalt;
+  }
+
+  public void setPasswordSalt(String passwordSalt) {
+    this.passwordSalt = passwordSalt;
   }
 }

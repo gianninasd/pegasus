@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -50,5 +51,50 @@ import dg.pegasus.UserService;
   @Test(expected=UserNotFoundException.class)
   public void testNotFound() {
     assertNotNull( userService.load("000-destruct") );
+  }
+
+  @Test
+  public void testCreate() {
+    User dummyUser = new User();
+    dummyUser.setName("Mary K.");
+    dummyUser.setUserName("mary");
+    dummyUser.setEmail("mary@gmail.com");
+    dummyUser.setStatus("PENDING");
+
+    when(userRepository.save(dummyUser)).thenReturn(fullUser());
+    User user = userService.create(dummyUser);
+
+    assertNotNull( user );
+    assertEquals("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d", user.getId());
+    assertEquals("API", user.getCreatedBy());
+    assertEquals("API", user.getModifiedBy());
+    assertEquals(dummyUser.getName(), user.getName());
+    assertEquals(dummyUser.getEmail(), user.getEmail());
+    assertNotNull( user.getCreationDate() );
+    assertNotNull( user.getModificationDate() );
+    assertNotNull( user.getPassword() );
+    assertNotNull( user.getPasswordSalt() );
+  }
+
+  /**
+   * Returns a fully created user object.
+   */
+  private User fullUser() {
+    User user = new User();
+    user.setName("Mary K.");
+    user.setUserName("mary");
+    user.setEmail("mary@gmail.com");
+    user.setStatus("PENDING");
+
+    user.setId("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d");
+    user.setCreatedBy("API");
+    user.setCreationDate(new Date());
+    user.setModifiedBy("API");
+    user.setModificationDate(new Date());
+
+    user.setPassword("password");
+    user.setPasswordSalt("salt");
+
+    return user; 
   }
 }

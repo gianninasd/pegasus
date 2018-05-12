@@ -70,8 +70,9 @@ public class UserController {
       return new ResponseEntity<Object>(res, HttpStatus.BAD_REQUEST);
     }
     else {
-      userService.create(user);
-      return new ResponseEntity<Object>("Saved", HttpStatus.CREATED);
+      User createdUser = userService.create(user);
+      logger.info("User created successfully: " + createdUser.getId());
+      return new ResponseEntity<Object>(createdUser, HttpStatus.CREATED);
     }
   }
 

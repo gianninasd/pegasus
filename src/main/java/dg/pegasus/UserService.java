@@ -41,6 +41,10 @@ public class UserService {
       user.setId(id.toString());
       user.setCreatedBy("API");
       user.setCreationDate(new Date());
+      user.setModifiedBy("API");
+      user.setModificationDate(new Date());
+      user.setPassword("dummy");
+      user.setPasswordSalt("salt");
       return userRepository.save(user);
     }
     catch( Exception ex ) {
