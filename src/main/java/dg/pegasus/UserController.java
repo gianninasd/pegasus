@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
@@ -55,7 +56,7 @@ public class UserController {
    * Creates a user based on the data provided.
    */
   @RequestMapping(method=RequestMethod.POST)
-  public @ResponseBody Object create( @Valid @RequestBody User user, Errors errors ) {
+  public ResponseEntity<Object> create( @Valid @RequestBody User user, Errors errors ) {
     logger.info("Create user: " + user);
 
     if( errors.getErrorCount() > 0 ) {
@@ -65,11 +66,12 @@ public class UserController {
         res.getError().addDetails(err.getField(), err.getDefaultMessage());
       }
 
-      return res;
+      logger.info("Unable to create user: " + res);
+      return new ResponseEntity<Object>(res, HttpStatus.BAD_REQUEST);
     }
     else {
       userService.create(user);
-      return "Saved";
+      return new ResponseEntity<Object>("Saved", HttpStatus.CREATED);
     }
   }
 

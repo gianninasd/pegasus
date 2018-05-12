@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * Response class used to return proper error messages to the client.
  * @author gianninasd
@@ -16,6 +19,11 @@ public class ErrorResponse implements Serializable {
 
   public ErrorResponse( String code, String message ) {
     this.error = new Error(code, message);
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
   }
 
   public Error getError() {
@@ -38,6 +46,11 @@ public class ErrorResponse implements Serializable {
     public Error( String code, String message ) {
       this.code = code;
       this.message = message;
+    }
+
+    @Override
+    public String toString() {
+      return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     public void addDetails( String field, String message ) {
@@ -80,6 +93,11 @@ public class ErrorResponse implements Serializable {
     public ErrorField( String field, String message ) {
       this.field = field;
       this.message = message;
+    }
+
+    @Override
+    public String toString() {
+      return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     public String getField() {
