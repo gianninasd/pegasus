@@ -33,6 +33,7 @@ public class UserService {
 
   /**
    * Creates and stores a new user using the data provided.
+   * @throws UserSaveFailedException if an unknown error occured
    */
   public User create( User user ) {
     try {

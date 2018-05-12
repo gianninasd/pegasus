@@ -17,7 +17,10 @@ Open a console and run the following commands to get going:
 You will see processing output on your console and once you see `Application Started`, open a browser window and navigate to `http://localhost:8080/users/v1/user/dd7262ad-f713-4d36-bcb3-fe9b5e75a74d` to see the JSON output
 
 ## References
-Below are some reference web sites
+Below is a design reference web site
+* Apigee: https://vimeo.com/31792500
+
+Below are some technical reference web sites
 * Spring Boot: 
   * https://docs.spring.io/spring-boot/docs/current/reference/html/
   * https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
