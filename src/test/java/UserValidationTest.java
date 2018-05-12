@@ -102,6 +102,24 @@ public class UserValidationTest {
     assertEquals("{user.status.invalid}", violation.getMessage());
   }
 
+  @Test
+  public void invalidEmail() {
+    User user = getGoodUser();
+    user.setEmail("boo.bla");
+
+    Set<ConstraintViolation<User>> violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    ConstraintViolation<User> violation = violations.iterator().next();
+    assertEquals("{user.email.invalid}", violation.getMessage());
+
+    user.setEmail("boo@@1364");
+
+    violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    violation = violations.iterator().next();
+    assertEquals("{user.email.invalid}", violation.getMessage());
+  }
+
   private User getGoodUser() {
     User user = new User();
     user.setName("mary k.");

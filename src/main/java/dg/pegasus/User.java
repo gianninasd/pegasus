@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import dg.pegasus.validator.EmailConstraint;
 import dg.pegasus.validator.UserStatusConstraint;
 
 /**
@@ -37,6 +38,7 @@ public class User implements Serializable {
   @Size(max=50,message="{user.name.invalid}")
   private String name;
 
+  @EmailConstraint(message="{user.email.invalid}")
   private String email;
 
   @Column(name="status_code")
