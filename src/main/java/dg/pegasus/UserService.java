@@ -43,12 +43,16 @@ public class UserService {
       user.setCreationDate(new Date());
       user.setModifiedBy("API");
       user.setModificationDate(new Date());
-      user.setPassword("dummy");
-      user.setPasswordSalt("salt");
+
+      // generate salt and hash the password
+      String salt = PasswordUtils.generateSalt();
+      user.setPassword( PasswordUtils.hashN(user.getPassword(), salt) );
+      user.setPasswordSalt( salt );
+      
       return userRepository.save(user);
     }
     catch( Exception ex ) {
-      throw new UserSaveFailedException(ex.getMessage());
+      throw new UserSaveFailedException(ex);
     }
   }
 }

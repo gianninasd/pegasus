@@ -8,7 +8,7 @@ plugins {
 }
 
 description = 'User administration as a REST API'
-version = '0.1'
+version = '0.4'
 mainClassName = 'dg.pegasus.Application'
 
 println "Building Pegasus $version ..."

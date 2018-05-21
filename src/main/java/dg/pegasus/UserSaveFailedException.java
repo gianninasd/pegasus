@@ -15,4 +15,8 @@ public class UserSaveFailedException extends RuntimeException {
   public UserSaveFailedException( String message ) {
     super( message );
   }
+
+  public UserSaveFailedException( Exception ex ) {
+    super( ex );
+  }
 }

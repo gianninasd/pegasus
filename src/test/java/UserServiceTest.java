@@ -60,12 +60,13 @@ import dg.pegasus.UserService;
     dummyUser.setUserName("mary");
     dummyUser.setEmail("mary@gmail.com");
     dummyUser.setStatus("PENDING");
+    dummyUser.setPassword("password");
 
-    when(userRepository.save(dummyUser)).thenReturn(fullUser());
+    when(userRepository.save(dummyUser)).thenReturn(fullUser(dummyUser));
     User user = userService.create(dummyUser);
 
     assertNotNull( user );
-    assertEquals("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d", user.getId());
+    assertNotNull(user.getId());
     assertEquals("API", user.getCreatedBy());
     assertEquals("API", user.getModifiedBy());
     assertEquals(dummyUser.getName(), user.getName());
@@ -79,7 +80,7 @@ import dg.pegasus.UserService;
   /**
    * Returns a fully created user object.
    */
-  private User fullUser() {
+  private User fullUser( User x ) {
     User user = new User();
     user.setName("Mary K.");
     user.setUserName("mary");
@@ -92,9 +93,9 @@ import dg.pegasus.UserService;
     user.setModifiedBy("API");
     user.setModificationDate(new Date());
 
-    user.setPassword("password");
-    user.setPasswordSalt("salt");
+    //user.setPassword("password");
+    //user.setPasswordSalt("salt");
 
-    return user; 
+    return x; 
   }
 }

@@ -83,7 +83,7 @@ public class UserController {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(UserSaveFailedException.class)
   public ErrorResponse handleUserSaveFailed(UserSaveFailedException ex) {
-    logger.error("Unknown error saving user " + ex);
+    logger.error("Unknown error saving user", ex);
     return new ErrorResponse("1000", "Unable to create user, contact support");
   }
 
