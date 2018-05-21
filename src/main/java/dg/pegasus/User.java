@@ -11,6 +11,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -129,6 +132,7 @@ public class User implements Serializable {
     this.modificationDate = modificationDate;
   }
 
+  @JsonProperty(access=Access.WRITE_ONLY)
   public String getPassword() {
     return password;
   }
@@ -137,6 +141,7 @@ public class User implements Serializable {
     this.password = password;
   }
 
+  @JsonProperty(access=Access.WRITE_ONLY)
   public String getPasswordSalt() {
     return passwordSalt;
   }
