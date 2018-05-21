@@ -26,6 +26,7 @@ Below are some technical reference web sites
   * https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 * Building REST API: https://spring.io/guides/gs/rest-service/
 * Accessing MySQL: https://spring.io/guides/gs/accessing-data-mysql/
+* Jackson Annotations: https://github.com/FasterXML/jackson-annotations/wiki
 * JUnit: https://junit.org/junit4/
 * JUnit with Mockito: 
   * http://www.vogella.com/tutorials/Mockito/article.html
