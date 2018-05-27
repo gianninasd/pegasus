@@ -19,6 +19,7 @@ You will see processing output on your console and once you see `Application Sta
 ## References
 Below is a design reference web site
 * Apigee: https://vimeo.com/31792500
+* Twelve Factor App: https://12factor.net/
 
 Below are some technical reference web sites
 * Spring Boot: 
