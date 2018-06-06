@@ -120,12 +120,45 @@ public class UserValidationTest {
     assertEquals("{user.email.invalid}", violation.getMessage());
   }
 
+  @Test
+  public void invalidPassword() {
+    User user = getGoodUser();
+    user.setPassword("password");
+    executeValidator(user, "{user.password.invalid}");
+
+    user.setPassword("PASSWORD");
+    executeValidator(user, "{user.password.invalid}");
+
+    user.setPassword("1234588");
+    executeValidator(user, "{user.password.invalid}");
+
+    user.setPassword("+*/-@%*()");
+    executeValidator(user, "{user.password.invalid}");
+
+    user.setPassword("   ");
+    executeValidator(user, "{user.password.invalid}");
+
+    user.setPassword("aB1");
+    executeValidator(user, "{user.password.invalid}");
+  }
+
+  private void executeValidator( User user, String errorMessage ) {
+    Set<ConstraintViolation<User>> violations = validator.validate(user);
+    assertEquals(violations.size(), 1);
+    ConstraintViolation<User> violation = violations.iterator().next();
+    assertEquals(errorMessage, violation.getMessage());
+  }
+
+  /**
+   * Creates a valid user object
+   */
   private User getGoodUser() {
     User user = new User();
     user.setName("mary k.");
     user.setUserName("mary");
     user.setEmail("mary@gmail.com");
     user.setStatus("PENDING");
+    user.setPassword("Upperlower1234");
     return user;
   }
 }

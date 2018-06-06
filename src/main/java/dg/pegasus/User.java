@@ -18,6 +18,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import dg.pegasus.validator.EmailConstraint;
+import dg.pegasus.validator.PasswordConstraint;
 import dg.pegasus.validator.UserStatusConstraint;
 
 /**
@@ -52,6 +53,7 @@ public class User implements Serializable {
   private String modifiedBy;
   private Date modificationDate;
 
+  @PasswordConstraint(message="{user.password.invalid}")
   private String password;
   private String passwordSalt;
 
