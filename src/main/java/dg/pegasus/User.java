@@ -59,7 +59,17 @@ public class User implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+      .append("id",id)
+      .append("userName",userName)
+      .append("name",name)
+      .append("email",email)
+      .append("status",status)
+      .append("createdBy",createdBy)
+      .append("creationDate",creationDate)
+      .append("modifiedBy",modifiedBy)
+      .append("modificationDate",modificationDate)
+      .toString();
   }
 
   public String getUserName() {
