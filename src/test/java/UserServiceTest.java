@@ -1,8 +1,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -62,7 +63,7 @@ import dg.pegasus.UserService;
     dummyUser.setStatus("PENDING");
     dummyUser.setPassword("password");
 
-    when(userRepository.save(dummyUser)).thenReturn(fullUser(dummyUser));
+    when(userRepository.save(dummyUser)).thenReturn(dummyUser);
     User user = userService.create(dummyUser);
 
     assertNotNull( user );
@@ -77,25 +78,43 @@ import dg.pegasus.UserService;
     assertNotNull( user.getPasswordSalt() );
   }
 
-  /**
-   * Returns a fully created user object.
-   */
-  private User fullUser( User x ) {
-    User user = new User();
-    user.setName("Mary K.");
-    user.setUserName("mary");
-    user.setEmail("mary@gmail.com");
-    user.setStatus("PENDING");
+  @Test
+  public void testUpdate() {
+    String userId = "dd7262ad-f713-4d36-bcb3-fe9b5e75a74d";
 
-    user.setId("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d");
-    user.setCreatedBy("API");
-    user.setCreationDate(new Date());
-    user.setModifiedBy("API");
-    user.setModificationDate(new Date());
+    User existingUser = new User();
+    existingUser.setId(userId);
+    existingUser.setName("Mary K.");
+    existingUser.setUserName("mary");
+    existingUser.setPassword("password");
+    existingUser.setPasswordSalt("passwordSalt");
+    existingUser.setEmail("mary@gmail.com");
+    existingUser.setStatus("PENDING");
+    existingUser.setModifiedBy("jimmy");
 
-    //user.setPassword("password");
-    //user.setPasswordSalt("salt");
+    when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
 
-    return x; 
+    // create date from 5 mins ago
+    Calendar justBefore = Calendar.getInstance();
+    justBefore.set(Calendar.MILLISECOND, 0);
+
+    User user2Edit = new User();
+    user2Edit.setName("mary22");
+    user2Edit.setUserName("mary22");
+    user2Edit.setEmail("mary22@gmail.com");
+    user2Edit.setStatus("ENABLED");
+    user2Edit.setModifiedBy("adminUser");
+
+    when(userRepository.save(user2Edit)).thenReturn(user2Edit);
+
+    User user = userService.update(userId, user2Edit);
+
+    assertNotNull( user );
+    assertEquals(userId, user.getId());
+    assertEquals("adminUser", user.getModifiedBy());
+    assertNotNull( user.getPassword() );
+    assertNotNull( user.getPasswordSalt() );
+    assertNotNull( user.getModificationDate() );
+    assertTrue(user.getModificationDate().after(justBefore.getTime()));
   }
 }

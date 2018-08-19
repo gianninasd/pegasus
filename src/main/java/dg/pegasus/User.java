@@ -20,6 +20,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import dg.pegasus.validator.EmailConstraint;
 import dg.pegasus.validator.PasswordConstraint;
 import dg.pegasus.validator.UserStatusConstraint;
+import dg.pegasus.validator.ValidationGroups.Create;
 
 /**
  * User domain object
@@ -53,7 +54,7 @@ public class User implements Serializable {
   private String modifiedBy;
   private Date modificationDate;
 
-  @PasswordConstraint(message="{user.password.invalid}")
+  @PasswordConstraint(message="{user.password.invalid}",groups=Create.class)
   private String password;
   private String passwordSalt;
 

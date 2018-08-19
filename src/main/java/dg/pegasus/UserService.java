@@ -55,4 +55,30 @@ public class UserService {
       throw new UserSaveFailedException(ex);
     }
   }
+
+  /**
+   * Updates an existing user using the data provided.
+   * @throws UserNotFoundException if the user cannot be found based on the id
+   */
+  public User update( String id, User user ) {
+    Optional<User> user2Edit = userRepository.findById( id );
+
+    /* if( !user.isPresent() ) {
+      throw new UserNotFoundException( id );
+    } */
+
+    try {
+      user.setId(id);
+      user.setPassword(user2Edit.get().getPassword());
+      user.setPasswordSalt(user2Edit.get().getPasswordSalt());
+      user.setCreatedBy(user2Edit.get().getCreatedBy());
+      user.setCreationDate(user2Edit.get().getCreationDate());
+      user.setModificationDate(new Date());
+      
+      return userRepository.save(user);
+    }
+    catch( Exception ex ) {
+      throw new UserSaveFailedException(ex);
+    }
+  }
 }

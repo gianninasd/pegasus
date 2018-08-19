@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dg.pegasus.domain.ErrorResponse;
+import dg.pegasus.validator.ValidationGroups.Update;
 
 /**
  * Main REST controller for processing all user administration requests.
@@ -77,6 +79,30 @@ public class UserController {
   }
 
   /**
+   * Updates a user based on the data provided.
+   */
+  @RequestMapping(method=RequestMethod.PUT, value="/{id}")
+  public ResponseEntity<Object> update( @PathVariable String id, @Validated(Update.class) @RequestBody User user, Errors errors ) {
+    logger.info("Updating user: " + id);
+
+    if( errors.getErrorCount() > 0 ) {
+      ErrorResponse res = new ErrorResponse("2001", "Some fields contain errors");
+
+      for( FieldError err: errors.getFieldErrors() ) {
+        res.getError().addDetails(err.getField(), err.getDefaultMessage());
+      }
+
+      logger.info("Unable to update user: " + res);
+      return new ResponseEntity<Object>(res, HttpStatus.BAD_REQUEST);
+    }
+    else {
+      User updatedUser = userService.update( id, user );
+      logger.info("User updated successfully: " + id);
+      return new ResponseEntity<Object>(updatedUser, HttpStatus.OK);
+    }
+  }
+
+  /**
    * Handles when a UserSaveFailedException is thrown and returns a proper error response.
    */
   @ResponseBody
@@ -84,7 +110,7 @@ public class UserController {
   @ExceptionHandler(UserSaveFailedException.class)
   public ErrorResponse handleUserSaveFailed(UserSaveFailedException ex) {
     logger.error("Unknown error saving user", ex);
-    return new ErrorResponse("1000", "Unable to create user, contact support");
+    return new ErrorResponse("1000", "Unable to saving user, contact support");
   }
 
   /**
