@@ -63,9 +63,9 @@ public class UserService {
   public User update( String id, User user ) {
     Optional<User> user2Edit = userRepository.findById( id );
 
-    /* if( !user.isPresent() ) {
+    if( !user2Edit.isPresent() ) {
       throw new UserNotFoundException( id );
-    } */
+    }
 
     try {
       user.setId(id);

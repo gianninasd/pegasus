@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "42cfc827-795b-4d7c-847b-09a895e03f64",
+		"name": "Pegasus",
+		"description": "Local Pegasus user administration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/users/v1/user/dd7262ad-f713-4d36-bcb3-fe9b5e75a74d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"v1",
+						"user",
+						"dd7262ad-f713-4d36-bcb3-fe9b5e75a74d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"mary199\",\n\t\"name\": \"mary199\",\n\t\"email\": \"mary199@gmail.com\",\n\t\"status\": \"PENDING\",\n\t\"password\": \"Black1233\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"mary22\",\n    \"name\": \"mary22\",\n    \"email\": \"mary22@gmail.com\",\n    \"status\": \"PENDING\",\n    \"modifiedBy\": \"postman\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/v1/user/095e8507-7653-4c9b-b120-df9954a1488c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"v1",
+						"user",
+						"095e8507-7653-4c9b-b120-df9954a1488c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
