@@ -1,10 +1,11 @@
 package dg.pegasus;
 
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
+import dg.pegasus.dao.DataAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,20 +16,15 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   @Autowired
-  private UserRepository userRepository;
+  @Qualifier("inMemoryDB")
+  private DataAccess dataAccess;
 
   /**
    * Returns a user object based on the id provided.
    * @throws UserNotFoundException if the user cannot be found
    */
   public User load( String id ) {
-    Optional<User> user = userRepository.findById( id );
-
-    if( !user.isPresent() ) {
-      throw new UserNotFoundException( id );
-    }
-
-    return user.get();
+    return dataAccess.get(id);
   }
 
   /**
@@ -49,7 +45,7 @@ public class UserService {
       user.setPassword( PasswordUtils.hashN(user.getPassword(), salt) );
       user.setPasswordSalt( salt );
       
-      return userRepository.save(user);
+      return dataAccess.save(user);
     }
     catch( Exception ex ) {
       throw new UserSaveFailedException(ex);
@@ -61,21 +57,17 @@ public class UserService {
    * @throws UserNotFoundException if the user cannot be found based on the id
    */
   public User update( String id, User user ) {
-    Optional<User> user2Edit = userRepository.findById( id );
-
-    if( !user2Edit.isPresent() ) {
-      throw new UserNotFoundException( id );
-    }
+    User user2Edit = dataAccess.get(id);
 
     try {
       user.setId(id);
-      user.setPassword(user2Edit.get().getPassword());
-      user.setPasswordSalt(user2Edit.get().getPasswordSalt());
-      user.setCreatedBy(user2Edit.get().getCreatedBy());
-      user.setCreationDate(user2Edit.get().getCreationDate());
+      user.setPassword(user2Edit.getPassword());
+      user.setPasswordSalt(user2Edit.getPasswordSalt());
+      user.setCreatedBy(user2Edit.getCreatedBy());
+      user.setCreationDate(user2Edit.getCreationDate());
       user.setModificationDate(new Date());
       
-      return userRepository.save(user);
+      return dataAccess.save(user);
     }
     catch( Exception ex ) {
       throw new UserSaveFailedException(ex);

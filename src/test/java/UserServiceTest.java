@@ -4,8 +4,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.Calendar;
-import java.util.Optional;
 
+import dg.pegasus.dao.DataAccess;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import dg.pegasus.User;
 import dg.pegasus.UserNotFoundException;
-import dg.pegasus.UserRepository;
 import dg.pegasus.UserService;
 
 /**
@@ -29,7 +28,7 @@ import dg.pegasus.UserService;
   UserService userService = new UserService();
 
   @Mock
-  UserRepository userRepository;
+  DataAccess dataAccess;
 
   // test data
   private User sampleUser;
@@ -42,7 +41,8 @@ import dg.pegasus.UserService;
 
   @Test
   public void testLoad() {
-    when(userRepository.findById("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d")).thenReturn(Optional.of(sampleUser));
+    //when(userRepository.findById("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d")).thenReturn(Optional.of(sampleUser));
+    when(dataAccess.get("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d")).thenReturn(sampleUser);
 
     User user = userService.load("dd7262ad-f713-4d36-bcb3-fe9b5e75a74d");
     assertNotNull( user );
@@ -51,6 +51,7 @@ import dg.pegasus.UserService;
 
   @Test(expected=UserNotFoundException.class)
   public void testNotFound() {
+    when(dataAccess.get("000-destruct")).thenThrow(new UserNotFoundException());
     assertNotNull( userService.load("000-destruct") );
   }
 
@@ -63,7 +64,7 @@ import dg.pegasus.UserService;
     dummyUser.setStatus("PENDING");
     dummyUser.setPassword("password");
 
-    when(userRepository.save(dummyUser)).thenReturn(dummyUser);
+    when(dataAccess.save(dummyUser)).thenReturn(dummyUser);
     User user = userService.create(dummyUser);
 
     assertNotNull( user );
@@ -92,7 +93,7 @@ import dg.pegasus.UserService;
     existingUser.setStatus("PENDING");
     existingUser.setModifiedBy("jimmy");
 
-    when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
+    when(dataAccess.get(userId)).thenReturn(existingUser);
 
     // create date from 5 mins ago
     Calendar justBefore = Calendar.getInstance();
@@ -105,7 +106,7 @@ import dg.pegasus.UserService;
     user2Edit.setStatus("ENABLED");
     user2Edit.setModifiedBy("adminUser");
 
-    when(userRepository.save(user2Edit)).thenReturn(user2Edit);
+    when(dataAccess.save(user2Edit)).thenReturn(user2Edit);
 
     User user = userService.update(userId, user2Edit);
 
